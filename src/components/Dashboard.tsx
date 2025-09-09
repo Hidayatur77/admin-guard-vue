@@ -234,11 +234,10 @@ export default function Dashboard({ allData }: DashboardProps) {
                 recentUpdates.map((item) => (
                   <div key={item.id} className="flex items-center gap-4 p-3 bg-muted/50 rounded-lg">
                     <Badge 
-                      variant="outline" 
-                      className={
-                        item.status === "Hijau" ? "border-status-green text-status-green bg-status-green-bg" :
-                        item.status === "Kuning" ? "border-status-yellow text-status-yellow bg-status-yellow-bg" :
-                        "border-status-red text-status-red bg-status-red-bg"
+                      variant={
+                        item.status === "Hijau" ? "success-outline" :
+                        item.status === "Kuning" ? "warning-outline" :
+                        "danger-outline"
                       }
                     >
                       {item.status}

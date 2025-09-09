@@ -213,17 +213,17 @@ export default function MonitoringTable({
             )}
           </div>
 
-          {/* Active Filter Indicator */}
-          <div className="flex items-center gap-2">
-            <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
-              Area Aktif: {area}
-            </Badge>
-            {filteredItems.length !== items.length && (
-              <Badge variant="outline">
-                Menampilkan {filteredItems.length} dari {items.length} item
+            {/* Active Filter Indicator */}
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                Area Aktif: {area}
               </Badge>
-            )}
-          </div>
+              {filteredItems.length !== items.length && (
+                <Badge variant="outline">
+                  Menampilkan {filteredItems.length} dari {items.length} item
+                </Badge>
+              )}
+            </div>
 
           {/* Table */}
           <div className="border rounded-lg overflow-hidden">
@@ -259,12 +259,11 @@ export default function MonitoringTable({
                         </TableCell>
                         <TableCell>
                           <Badge 
-                            variant="outline" 
-                            className={`font-medium ${
-                              item.status === "Hijau" ? "border-status-green text-status-green bg-status-green-bg" :
-                              item.status === "Kuning" ? "border-status-yellow text-status-yellow bg-status-yellow-bg" :
-                              "border-status-red text-status-red bg-status-red-bg"
-                            }`}
+                            variant={
+                              item.status === "Hijau" ? "success-outline" :
+                              item.status === "Kuning" ? "warning-outline" :
+                              "danger-outline"
+                            }
                           >
                             {item.status}
                           </Badge>

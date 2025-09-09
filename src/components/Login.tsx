@@ -11,6 +11,8 @@ interface LoginProps {
 }
 
 export default function Login({ onLogin }: LoginProps) {
+  console.log("Login: Component initialized");
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);

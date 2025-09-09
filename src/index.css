@@ -6,53 +6,53 @@
 
 @layer base {
   :root {
-    --background: 248 250 252;
-    --foreground: 15 23 42;
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
 
-    --card: 255 255 255;
-    --card-foreground: 15 23 42;
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 18%;
 
-    --popover: 255 255 255;
-    --popover-foreground: 15 23 42;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 18%;
 
-    --primary: 59 130 246;
-    --primary-foreground: 248 250 252;
-    --primary-glow: 147 197 253;
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 40% 98%;
+    --primary-glow: 213 94% 68%;
 
-    --secondary: 241 245 249;
-    --secondary-foreground: 15 23 42;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 241 245 249;
-    --muted-foreground: 100 116 139;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 241 245 249;
-    --accent-foreground: 15 23 42;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
 
-    --destructive: 239 68 68;
-    --destructive-foreground: 248 250 252;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
 
-    --warning: 245 158 11;
-    --warning-foreground: 15 23 42;
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 13% 18%;
 
-    --success: 34 197 94;
-    --success-foreground: 248 250 252;
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
 
-    --border: 226 232 240;
-    --input: 226 232 240;
-    --ring: 59 130 246;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 217 91% 60%;
 
     --radius: 0.75rem;
 
     /* Status Colors */
-    --status-green: 34 197 94;
-    --status-green-bg: 240 253 244;
-    --status-yellow: 245 158 11;
-    --status-yellow-bg: 254 252 232;
-    --status-red: 239 68 68;
-    --status-red-bg: 254 242 242;
+    --status-green: 142 76% 36%;
+    --status-green-bg: 142 76% 95%;
+    --status-yellow: 38 92% 50%;
+    --status-yellow-bg: 54 92% 95%;
+    --status-red: 0 84% 60%;
+    --status-red-bg: 0 86% 97%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(212 97% 73%));
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(213 94% 68%));
     --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 71% 45%));
     --gradient-warning: linear-gradient(135deg, hsl(38 92% 50%), hsl(43 96% 56%));
     --gradient-danger: linear-gradient(135deg, hsl(0 84% 60%), hsl(0 91% 71%));
@@ -69,48 +69,48 @@
   }
 
   .dark {
-    --background: 2 6 23;
-    --foreground: 248 250 252;
+    --background: 222 84% 5%;
+    --foreground: 210 40% 98%;
 
-    --card: 15 23 42;
-    --card-foreground: 248 250 252;
+    --card: 224 71% 4%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 15 23 42;
-    --popover-foreground: 248 250 252;
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 147 197 253;
-    --primary-foreground: 15 23 42;
-    --primary-glow: 59 130 246;
+    --primary: 213 94% 68%;
+    --primary-foreground: 222 47% 11%;
+    --primary-glow: 217 91% 60%;
 
-    --secondary: 30 41 59;
-    --secondary-foreground: 248 250 252;
+    --secondary: 215 28% 17%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 30 41 59;
-    --muted-foreground: 148 163 184;
+    --muted: 215 28% 17%;
+    --muted-foreground: 217 11% 65%;
 
-    --accent: 30 41 59;
-    --accent-foreground: 248 250 252;
+    --accent: 215 28% 17%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 248 113 113;
-    --destructive-foreground: 15 23 42;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
 
-    --warning: 251 191 36;
-    --warning-foreground: 15 23 42;
+    --warning: 43 96% 56%;
+    --warning-foreground: 220 13% 18%;
 
-    --success: 74 222 128;
-    --success-foreground: 15 23 42;
+    --success: 142 71% 45%;
+    --success-foreground: 210 40% 98%;
 
-    --border: 30 41 59;
-    --input: 30 41 59;
-    --ring: 147 197 253;
+    --border: 215 28% 17%;
+    --input: 215 28% 17%;
+    --ring: 213 94% 68%;
 
     /* Status Colors - Dark Mode */
-    --status-green: 74 222 128;
-    --status-green-bg: 6 20 9;
-    --status-yellow: 251 191 36;
-    --status-yellow-bg: 20 17 5;
-    --status-red: 248 113 113;
-    --status-red-bg: 20 6 6;
+    --status-green: 142 71% 45%;
+    --status-green-bg: 142 86% 6%;
+    --status-yellow: 43 96% 56%;
+    --status-yellow-bg: 54 100% 10%;
+    --status-red: 0 91% 71%;
+    --status-red-bg: 0 93% 10%;
 
     /* Gradients - Dark Mode */
     --gradient-primary: linear-gradient(135deg, hsl(213 94% 68%), hsl(217 91% 60%));
