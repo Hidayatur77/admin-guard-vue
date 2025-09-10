@@ -116,12 +116,12 @@ export default function MonitoringForm({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md md:max-w-lg lg:max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-xl">
+      <DialogContent className="w-[95vw] max-w-lg sm:max-w-xl md:max-w-2xl max-h-[95vh] overflow-hidden flex flex-col p-0">
+        <DialogHeader className="p-4 sm:p-6 pb-2">
+          <DialogTitle className="text-lg sm:text-xl">
             {editItem ? "Edit Data Monitoring" : "Tambah Data Monitoring"}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-sm">
             {editItem 
               ? "Perbarui informasi monitoring yang sudah ada" 
               : "Tambahkan item monitoring baru ke sistem"
@@ -129,153 +129,168 @@ export default function MonitoringForm({
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Area */}
-            <div className="space-y-2">
-              <Label htmlFor="area" className="text-sm font-medium">
-                Area Bisnis <span className="text-destructive">*</span>
-              </Label>
-              <Select value={formData.area} onValueChange={handleAreaChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Pilih area bisnis" />
-                </SelectTrigger>
-                <SelectContent>
-                  {AREAS.map(area => (
-                    <SelectItem key={area.key} value={area.key}>
-                      {area.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 pb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Area */}
+              <div className="space-y-2">
+                <Label htmlFor="area" className="text-sm font-medium">
+                  Area Bisnis <span className="text-destructive">*</span>
+                </Label>
+                <Select value={formData.area} onValueChange={handleAreaChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Pilih area bisnis" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {AREAS.map(area => (
+                      <SelectItem key={area.key} value={area.key}>
+                        {area.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Sub Area */}
+              <div className="space-y-2">
+                <Label htmlFor="subArea" className="text-sm font-medium">
+                  Sub Area <span className="text-destructive">*</span>
+                </Label>
+                <Select 
+                  value={formData.subArea} 
+                  onValueChange={(value) => setFormData(prev => ({ ...prev, subArea: value }))}
+                  disabled={!formData.area}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Pilih sub area" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableSubAreas.map(subArea => (
+                      <SelectItem key={subArea} value={subArea}>
+                        {subArea}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
-            {/* Sub Area */}
+            {/* Indikator */}
             <div className="space-y-2">
-              <Label htmlFor="subArea" className="text-sm font-medium">
-                Sub Area <span className="text-destructive">*</span>
-              </Label>
-              <Select 
-                value={formData.subArea} 
-                onValueChange={(value) => setFormData(prev => ({ ...prev, subArea: value }))}
-                disabled={!formData.area}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Pilih sub area" />
-                </SelectTrigger>
-                <SelectContent>
-                  {availableSubAreas.map(subArea => (
-                    <SelectItem key={subArea} value={subArea}>
-                      {subArea}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          {/* Indikator */}
-          <div className="space-y-2">
-            <Label htmlFor="indicator" className="text-sm font-medium">
-              Indikator Monitoring
-            </Label>
-            <Input
-              id="indicator"
-              value={formData.indicator}
-              onChange={(e) => setFormData(prev => ({ ...prev, indicator: e.target.value }))}
-              placeholder="Contoh: Daftar aset & nilai buku ter-update"
-              className="w-full"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Status */}
-            <div className="space-y-2">
-              <Label htmlFor="status" className="text-sm font-medium">
-                Status <span className="text-destructive">*</span>
-              </Label>
-              <Select 
-                value={formData.status} 
-                onValueChange={(value) => setFormData(prev => ({ ...prev, status: value as any }))}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Pilih status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Hijau">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-status-green rounded-full" />
-                      Hijau (Normal/Baik)
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="Kuning">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-status-yellow rounded-full" />
-                      Kuning (Perlu Perhatian)
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="Merah">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-status-red rounded-full" />
-                      Merah (Bermasalah)
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Last Update */}
-            <div className="space-y-2">
-              <Label htmlFor="lastUpdate" className="text-sm font-medium">
-                Tanggal Update Terakhir
+              <Label htmlFor="indicator" className="text-sm font-medium">
+                Indikator Monitoring
               </Label>
               <Input
-                id="lastUpdate"
-                type="date"
-                value={formData.lastUpdate}
-                onChange={(e) => setFormData(prev => ({ ...prev, lastUpdate: e.target.value }))}
+                id="indicator"
+                value={formData.indicator}
+                onChange={(e) => setFormData(prev => ({ ...prev, indicator: e.target.value }))}
+                placeholder="Contoh: Daftar aset & nilai buku ter-update"
+                className="w-full"
               />
             </div>
-          </div>
 
-          {/* PIC */}
-          <div className="space-y-2">
-            <Label htmlFor="pic" className="text-sm font-medium">
-              Person In Charge (PIC)
-            </Label>
-            <Input
-              id="pic"
-              value={formData.pic}
-              onChange={(e) => setFormData(prev => ({ ...prev, pic: e.target.value }))}
-              placeholder="Nama penanggung jawab"
-            />
-          </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Status */}
+              <div className="space-y-2">
+                <Label htmlFor="status" className="text-sm font-medium">
+                  Status <span className="text-destructive">*</span>
+                </Label>
+                <Select 
+                  value={formData.status} 
+                  onValueChange={(value) => setFormData(prev => ({ ...prev, status: value as any }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Pilih status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Hijau">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 bg-status-green rounded-full" />
+                        <span className="hidden sm:inline">Hijau (Normal/Baik)</span>
+                        <span className="sm:hidden">Hijau</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="Kuning">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 bg-status-yellow rounded-full" />
+                        <span className="hidden sm:inline">Kuning (Perlu Perhatian)</span>
+                        <span className="sm:hidden">Kuning</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="Merah">
+                      <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 bg-status-red rounded-full" />
+                        <span className="hidden sm:inline">Merah (Bermasalah)</span>
+                        <span className="sm:hidden">Merah</span>
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-          {/* Notes */}
-          <div className="space-y-2">
-            <Label htmlFor="notes" className="text-sm font-medium">
-              Catatan / Tindakan
-            </Label>
-            <Textarea
-              id="notes"
-              value={formData.notes}
-              onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
-              placeholder="Catatan singkat, tindakan yang diambil, atau keterangan tambahan..."
-              className="min-h-[80px]"
-            />
-          </div>
+              {/* Last Update */}
+              <div className="space-y-2">
+                <Label htmlFor="lastUpdate" className="text-sm font-medium">
+                  Tanggal Update Terakhir
+                </Label>
+                <Input
+                  id="lastUpdate"
+                  type="date"
+                  value={formData.lastUpdate}
+                  onChange={(e) => setFormData(prev => ({ ...prev, lastUpdate: e.target.value }))}
+                />
+              </div>
+            </div>
 
-          <DialogFooter className="gap-2">
-            <Button type="button" variant="outline" onClick={onClose}>
-              <X className="w-4 h-4 mr-2" />
-              Batal
+            {/* PIC */}
+            <div className="space-y-2">
+              <Label htmlFor="pic" className="text-sm font-medium">
+                Person In Charge (PIC)
+              </Label>
+              <Input
+                id="pic"
+                value={formData.pic}
+                onChange={(e) => setFormData(prev => ({ ...prev, pic: e.target.value }))}
+                placeholder="Nama penanggung jawab"
+              />
+            </div>
+
+            {/* Notes */}
+            <div className="space-y-2">
+              <Label htmlFor="notes" className="text-sm font-medium">
+                Catatan / Tindakan
+              </Label>
+              <Textarea
+                id="notes"
+                value={formData.notes}
+                onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
+                placeholder="Catatan singkat, tindakan yang diambil, atau keterangan tambahan..."
+                className="min-h-[60px] sm:min-h-[80px] resize-none"
+              />
+            </div>
+          </form>
+        </div>
+
+        <DialogFooter className="p-4 sm:p-6 pt-2 border-t bg-muted/30">
+          <div className="flex flex-col-reverse sm:flex-row gap-2 w-full">
+            <Button type="button" variant="outline" onClick={onClose} className="flex-1 sm:flex-none">
+              <X className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Batal</span>
+              <span className="sm:hidden">Batal</span>
             </Button>
-            <Button type="submit" variant="hero" disabled={!isFormValid}>
-              <Save className="w-4 h-4 mr-2" />
-              {editItem ? "Perbarui" : "Simpan"}
+            <Button 
+              type="submit" 
+              variant="hero" 
+              disabled={!isFormValid}
+              onClick={handleSubmit}
+              className="flex-1 sm:flex-none"
+            >
+              <Save className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">{editItem ? "Perbarui" : "Simpan"}</span>
+              <span className="sm:hidden">{editItem ? "Update" : "Simpan"}</span>
             </Button>
-          </DialogFooter>
-        </form>
+          </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

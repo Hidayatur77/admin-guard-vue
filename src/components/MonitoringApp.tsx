@@ -357,20 +357,21 @@ export default function MonitoringApp({ onLogout, username }: MonitoringAppProps
       />
 
       {/* Main Content */}
-      <div className="flex-1 lg:ml-0">
+      <div className="flex-1 lg:ml-0 min-w-0">
         {/* Mobile Header */}
-        <div className="lg:hidden flex items-center justify-between p-4 border-b border-border bg-card">
+        <div className="lg:hidden flex items-center justify-between p-3 sm:p-4 border-b border-border bg-card/95 backdrop-blur-sm sticky top-0 z-30">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setSidebarOpen(true)}
+            className="shrink-0"
           >
             <Menu className="w-5 h-5" />
           </Button>
-          <h1 className="font-semibold text-lg">
+          <h1 className="font-semibold text-base sm:text-lg truncate mx-2">
             {activeArea === "Dashboard" ? "Dashboard" : activeArea}
           </h1>
-          <div className="w-10" />
+          <div className="w-10 shrink-0" />
         </div>
 
         {/* Content Area */}

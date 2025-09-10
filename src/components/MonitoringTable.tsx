@@ -167,52 +167,60 @@ export default function MonitoringTable({
 
         <CardContent className="space-y-4">
           {/* Filters */}
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  placeholder="Cari: Sub Area, Indikator, atau PIC..."
-                  value={filter.search}
-                  onChange={(e) => setFilter(prev => ({ ...prev, search: e.target.value }))}
-                  className="pl-10"
-                />
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <Input
+                    placeholder="Cari: Sub Area, Indikator, atau PIC..."
+                    value={filter.search}
+                    onChange={(e) => setFilter(prev => ({ ...prev, search: e.target.value }))}
+                    className="pl-10 h-10"
+                  />
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <Select value={filter.status} onValueChange={(value) => setFilter(prev => ({ ...prev, status: value }))}>
+                  <SelectTrigger className="w-full sm:w-[140px] h-10">
+                    <SelectValue placeholder="Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Semua</SelectItem>
+                    <SelectItem value="Hijau">Hijau</SelectItem>
+                    <SelectItem value="Kuning">Kuning</SelectItem>
+                    <SelectItem value="Merah">Merah</SelectItem>
+                  </SelectContent>
+                </Select>
+                {(filter.search || filter.status || filter.dateFrom || filter.dateTo) && (
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setFilter({ status: "", search: "", dateFrom: "", dateTo: "" })}
+                    className="px-3"
+                  >
+                    Reset
+                  </Button>
+                )}
               </div>
             </div>
-            <Select value={filter.status} onValueChange={(value) => setFilter(prev => ({ ...prev, status: value }))}>
-              <SelectTrigger className="w-full lg:w-[180px]">
-                <SelectValue placeholder="Filter Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Semua Status</SelectItem>
-                <SelectItem value="Hijau">Hijau</SelectItem>
-                <SelectItem value="Kuning">Kuning</SelectItem>
-                <SelectItem value="Merah">Merah</SelectItem>
-              </SelectContent>
-            </Select>
-            <Input
-              type="date"
-              value={filter.dateFrom}
-              onChange={(e) => setFilter(prev => ({ ...prev, dateFrom: e.target.value }))}
-              className="w-full lg:w-[160px]"
-              placeholder="Dari tanggal"
-            />
-            <Input
-              type="date"
-              value={filter.dateTo}
-              onChange={(e) => setFilter(prev => ({ ...prev, dateTo: e.target.value }))}
-              className="w-full lg:w-[160px]"
-              placeholder="Sampai tanggal"
-            />
-            {(filter.search || filter.status || filter.dateFrom || filter.dateTo) && (
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => setFilter({ status: "", search: "", dateFrom: "", dateTo: "" })}
-              >
-                Reset
-              </Button>
-            )}
+            
+            <div className="flex gap-3 overflow-x-auto pb-1">
+              <Input
+                type="date"
+                value={filter.dateFrom}
+                onChange={(e) => setFilter(prev => ({ ...prev, dateFrom: e.target.value }))}
+                className="w-36 h-10 shrink-0"
+                placeholder="Dari"
+              />
+              <Input
+                type="date"
+                value={filter.dateTo}
+                onChange={(e) => setFilter(prev => ({ ...prev, dateTo: e.target.value }))}
+                className="w-36 h-10 shrink-0"
+                placeholder="Sampai"
+              />
+            </div>
           </div>
 
             {/* Active Filter Indicator */}
