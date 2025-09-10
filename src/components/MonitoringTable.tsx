@@ -127,23 +127,23 @@ export default function MonitoringTable({
               </CardDescription>
             </div>
             <div className="flex flex-wrap gap-2">
-              <Button onClick={onAdd} variant="hero" size="sm">
+              <Button onClick={onAdd} variant="hero" size="sm" className="min-h-[40px]">
                 <Plus className="w-4 h-4" />
-                Tambah Data
+                <span className="hidden sm:inline ml-2">Tambah Data</span>
               </Button>
-              <Button onClick={onExportJSON} variant="outline" size="sm">
+              <Button onClick={onExportJSON} variant="outline" size="sm" className="min-h-[40px]">
                 <Download className="w-4 h-4" />
-                JSON
+                <span className="hidden sm:inline ml-2">JSON</span>
               </Button>
-              <Button onClick={onExportCSV} variant="outline" size="sm">
+              <Button onClick={onExportCSV} variant="outline" size="sm" className="min-h-[40px]">
                 <FileText className="w-4 h-4" />
-                CSV
+                <span className="hidden sm:inline ml-2">CSV</span>
               </Button>
               <label className="cursor-pointer">
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="sm" asChild className="min-h-[40px]">
                   <span>
                     <Download className="w-4 h-4" />
-                    Import
+                    <span className="hidden sm:inline ml-2">Import</span>
                   </span>
                 </Button>
                 <input 
@@ -153,11 +153,13 @@ export default function MonitoringTable({
                   className="hidden" 
                 />
               </label>
-              <Button onClick={() => window.print()} variant="ghost" size="sm">
+              <Button onClick={() => window.print()} variant="ghost" size="sm" className="min-h-[40px]">
                 <Printer className="w-4 h-4" />
+                <span className="hidden sm:inline ml-2">Print</span>
               </Button>
-              <Button onClick={onReset} variant="destructive" size="sm">
+              <Button onClick={onReset} variant="destructive" size="sm" className="min-h-[40px]">
                 <RotateCcw className="w-4 h-4" />
+                <span className="hidden sm:inline ml-2">Reset</span>
               </Button>
             </div>
           </div>
@@ -225,8 +227,8 @@ export default function MonitoringTable({
               )}
             </div>
 
-          {/* Table */}
-          <div className="border rounded-lg overflow-hidden">
+          {/* Desktop Table */}
+          <div className="hidden md:block border rounded-lg overflow-hidden">
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
@@ -310,6 +312,90 @@ export default function MonitoringTable({
                 </TableBody>
               </Table>
             </div>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="md:hidden space-y-4">
+            {filteredItems.length > 0 ? (
+              filteredItems.map((item, index) => (
+                <Card key={item.id} className={`shadow-subtle ${getStatusBgColor(item.status)}`}>
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-sm font-medium text-muted-foreground">#{index + 1}</span>
+                          <Badge 
+                            variant={
+                              item.status === "Hijau" ? "success-outline" :
+                              item.status === "Kuning" ? "warning-outline" :
+                              "danger-outline"
+                            }
+                          >
+                            {item.status}
+                          </Badge>
+                        </div>
+                        <h3 className="font-semibold text-sm mb-1">{item.subArea}</h3>
+                        <p className="text-xs text-muted-foreground">{item.area}</p>
+                      </div>
+                      <div className="flex gap-1 ml-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-9 w-9"
+                          onClick={() => onEdit(item)}
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-9 w-9 text-destructive hover:text-destructive"
+                          onClick={() => onDelete(item.id)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <div>
+                        <p className="text-xs font-medium text-muted-foreground">Indikator</p>
+                        <p className="text-sm">{item.indicator}</p>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground">PIC</p>
+                          <p className="text-sm font-medium">{item.pic}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground">Update</p>
+                          <p className="text-sm">{item.lastUpdate}</p>
+                        </div>
+                      </div>
+                      
+                      {item.notes && (
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground">Catatan</p>
+                          <p className="text-sm text-muted-foreground">{item.notes}</p>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <Card className="shadow-subtle">
+                <CardContent className="p-8 text-center">
+                  <p className="text-muted-foreground">
+                    {items.length === 0 
+                      ? "Belum ada data monitoring. Klik Tambah Data untuk memulai."
+                      : "Tidak ada data yang sesuai dengan filter."
+                    }
+                  </p>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </CardContent>
       </Card>

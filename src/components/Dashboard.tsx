@@ -154,26 +154,28 @@ export default function Dashboard({ allData }: DashboardProps) {
         {/* Bar Chart - Status by Area */}
         <Card className="shadow-medium">
           <CardHeader>
-            <CardTitle className="text-lg">Status Monitoring per Area</CardTitle>
-            <CardDescription>Distribusi status monitoring di setiap area bisnis</CardDescription>
+            <CardTitle className="text-base sm:text-lg">Status Monitoring per Area</CardTitle>
+            <CardDescription className="text-sm">Distribusi status monitoring di setiap area bisnis</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={areaChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <ResponsiveContainer width="100%" height={280}>
+              <BarChart data={areaChartData} margin={{ top: 20, right: 15, left: 10, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
                 <XAxis 
                   dataKey="area" 
-                  tick={{ fontSize: 12 }}
+                  tick={{ fontSize: 10 }}
                   angle={-45}
                   textAnchor="end"
-                  height={80}
+                  height={60}
+                  interval={0}
                 />
-                <YAxis tick={{ fontSize: 12 }} />
+                <YAxis tick={{ fontSize: 10 }} />
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: 'hsl(var(--card))',
                     border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px'
+                    borderRadius: '8px',
+                    fontSize: '12px'
                   }}
                 />
                 <Bar dataKey="green" stackId="status" fill="hsl(var(--status-green))" name="Hijau" />
@@ -187,19 +189,19 @@ export default function Dashboard({ allData }: DashboardProps) {
         {/* Pie Chart - Overall Status Distribution */}
         <Card className="shadow-medium">
           <CardHeader>
-            <CardTitle className="text-lg">Distribusi Status Keseluruhan</CardTitle>
-            <CardDescription>Proporsi status monitoring secara keseluruhan</CardDescription>
+            <CardTitle className="text-base sm:text-lg">Distribusi Status Keseluruhan</CardTitle>
+            <CardDescription className="text-sm">Proporsi status monitoring secara keseluruhan</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={280}>
               <PieChart>
                 <Pie
                   data={pieData}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                  outerRadius={80}
+                  label={({ name, percent }) => window.innerWidth > 640 ? `${name} ${(percent * 100).toFixed(0)}%` : `${(percent * 100).toFixed(0)}%`}
+                  outerRadius={window.innerWidth > 640 ? 80 : 60}
                   fill="#8884d8"
                   dataKey="value"
                 >
@@ -211,7 +213,8 @@ export default function Dashboard({ allData }: DashboardProps) {
                   contentStyle={{ 
                     backgroundColor: 'hsl(var(--card))',
                     border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px'
+                    borderRadius: '8px',
+                    fontSize: '12px'
                   }}
                 />
               </PieChart>
@@ -232,21 +235,24 @@ export default function Dashboard({ allData }: DashboardProps) {
             <div className="space-y-4">
               {recentUpdates.length > 0 ? (
                 recentUpdates.map((item) => (
-                  <div key={item.id} className="flex items-center gap-4 p-3 bg-muted/50 rounded-lg">
-                    <Badge 
-                      variant={
-                        item.status === "Hijau" ? "success-outline" :
-                        item.status === "Kuning" ? "warning-outline" :
-                        "danger-outline"
-                      }
-                    >
-                      {item.status}
-                    </Badge>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm truncate">{item.indicator}</p>
-                      <p className="text-xs text-muted-foreground">{item.area} • {item.subArea}</p>
+                  <div key={item.id} className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 bg-muted/50 rounded-lg">
+                    <div className="flex items-center gap-3 flex-1">
+                      <Badge 
+                        variant={
+                          item.status === "Hijau" ? "success-outline" :
+                          item.status === "Kuning" ? "warning-outline" :
+                          "danger-outline"
+                        }
+                        className="shrink-0"
+                      >
+                        {item.status}
+                      </Badge>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm truncate">{item.indicator}</p>
+                        <p className="text-xs text-muted-foreground">{item.area} • {item.subArea}</p>
+                      </div>
                     </div>
-                    <div className="text-right">
+                    <div className="flex justify-between sm:block sm:text-right sm:shrink-0">
                       <p className="text-xs font-medium">{item.pic}</p>
                       <p className="text-xs text-muted-foreground">{item.lastUpdate}</p>
                     </div>

@@ -374,7 +374,7 @@ export default function MonitoringApp({ onLogout, username }: MonitoringAppProps
         </div>
 
         {/* Content Area */}
-        <main className="p-4 lg:p-8">
+        <main className="p-3 sm:p-4 lg:p-8">
           {activeArea === "Dashboard" ? (
             <Dashboard allData={allData} />
           ) : (
