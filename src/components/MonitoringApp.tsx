@@ -16,16 +16,12 @@ interface MonitoringAppProps {
 const STORAGE_KEY = "monitoring_system_data";
 
 export default function MonitoringApp({ onLogout, username }: MonitoringAppProps) {
-  console.log("MonitoringApp: Starting with username:", username);
-  
   const [activeArea, setActiveArea] = useState("Dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [allData, setAllData] = useState<Record<string, MonitoringItem[]>>({});
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editItem, setEditItem] = useState<MonitoringItem | null>(null);
   const { toast } = useToast();
-
-  console.log("MonitoringApp: Current state - activeArea:", activeArea, "allData keys:", Object.keys(allData));
 
   // Generate unique ID
   const generateId = () => {
@@ -136,9 +132,7 @@ export default function MonitoringApp({ onLogout, username }: MonitoringAppProps
 
   // Initialize data on mount
   useEffect(() => {
-    console.log("MonitoringApp: Loading data...");
     const data = loadData();
-    console.log("MonitoringApp: Data loaded:", data);
     setAllData(data);
   }, []);
 
