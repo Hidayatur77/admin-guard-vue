@@ -40,7 +40,7 @@ export default function MonitoringTable({
 
   // Filter items
   const filteredItems = items.filter(item => {
-    if (filter.status && item.status !== filter.status) return false;
+    if (filter.status && filter.status !== "all" && item.status !== filter.status) return false;
     if (filter.search) {
       const searchLower = filter.search.toLowerCase();
       if (
@@ -182,7 +182,7 @@ export default function MonitoringTable({
                 <SelectValue placeholder="Filter Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Semua Status</SelectItem>
+                <SelectItem value="all">Semua Status</SelectItem>
                 <SelectItem value="Hijau">Hijau</SelectItem>
                 <SelectItem value="Kuning">Kuning</SelectItem>
                 <SelectItem value="Merah">Merah</SelectItem>
